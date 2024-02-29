@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AJS Simple Calculator</title>
+    <script type="text/javascript" src="angular.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #b84040;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            color: #0b0b0b;
+        }
+
+        .calculator-container {
+            max-width: 400px;
+            font-weight: bold;
+            margin: 50px auto;
+            background-color: #e69f9f;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input,
+        select,
+        button {
+            margin-bottom: 10px;
+            padding: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        b {
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+    <script>
+        var app = angular.module("calcApp", []);
+        app.controller("calcCntrl", function ($scope) {
+            $scope.num1 = 0
+            $scope.num2 = 0
+            $scope.result = 0
+            $scope.operator = "+"
+            $scope.compute = function () {
+                switch ($scope.operator) {
+                    case '+':
+                        $scope.result = $scope.num1 + $scope.num2
+                        break
+                    case '-':
+                        $scope.result = $scope.num1 - $scope.num2
+                        break
+                    case '*':
+                        $scope.result = $scope.num1 * $scope.num2
+                        break
+                    case '/':
+                        if ($scope.num2 == 0) {
+                            alert("Divide by zero error")
+                        } else {
+                            $scope.result = $scope.num1 / $scope.num2
+                        }
+                }
+            }
+        });
+    </script>
+</head>
+
+<body ng-app="calcApp">
+    <h1>Angular JS Simple Calculator</h1>
+    <div class="calculator-container" ng-controller="calcCntrl">
+        Enter First Number: <input type="number" ng-model="num1"><br>
+        Select Operator:
+        <select ng-model="operator">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select><br>
+        Enter Second Number: <input type="number" ng-model="num2"><br>
+        <button ng-click="compute()">Compute</button><br>
+        <b>{{num1 + " " + operator + " " + num2 + "=" + result}}</b>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>TO DO Application</title>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: lightyellow;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      text-align: center;
+
+    }
+
+    h1 {
+      color: #333;
+      border-bottom: 2px solid #333;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    .todo-container {
+      width: 80%;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="text"],
+    input[type="checkbox"],
+    button {
+      margin: 10px;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #b93dc2;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    span {
+      display: inline-block;
+      width: 100px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    input[type="text"] {
+      width: 70%;
+    }
+
+    button {
+      background-color: #b93dc2;
+      color: white;
+      border: none;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+  <script>
+    var app = angular.module("toDoApp", []);
+    app.controller("toDoAppCntrl", function ($scope) {
+      $scope.tasks = [
+        { 'TITLE': 'Task-1', 'COMPLETED': true, 'EDITING': false },
+        { 'TITLE': 'Task-2', 'COMPLETED': false, 'EDITING': false },
+        { 'TITLE': 'Task-3', 'COMPLETED': false, 'EDITING': false }
+      ];
+
+      $scope.addTask = function () {
+        if ($scope.newTask) {
+          var t = {
+            'TITLE': $scope.newTask,
+            'COMPLETED': false,
+            'EDITING': false
+          };
+          $scope.tasks.push(t);
+          $scope.newTask = ''; // Clear the input after adding task
+        } else {
+          alert("Please enter the task to add");
+        }
+      };
+
+      $scope.editTask = function (task) {
+        task.EDITING = true;
+      };
+
+      $scope.turnOffEditing = function (task) {
+        task.EDITING = false;
+      };
+
+      $scope.deleteTask = function (task) {
+        var index = $scope.tasks.indexOf(task);
+        $scope.tasks.splice(index, 1);
+      };
+    });
+  </script>
+</head>
+
+<body ng-app="toDoApp">
+  <h1>TO DO APPLICATION</h1>
+  <div ng-controller="toDoAppCntrl" class="todo-container">
+    Enter the name of the Task:
+    <input type="text" ng-model="newTask">
+    <button ng-click="addTask()">Add Task</button>
+    <br />
+    <br />
+    <table border="1">
+      <tr>
+        <th>SLNO</th>
+        <th>Status</th>
+        <th>Task</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+      <tr ng-repeat="task in tasks">
+        <td>{{$index+1}}</td>
+        <td>
+          <input type="checkbox" ng-model="task.COMPLETED">
+        </td>
+        <td>
+          <span ng-show="!task.EDITING">{{task.TITLE}}</span>
+          <input type="text" ng-show="task.EDITING" ng-model="task.TITLE" ng-blur="turnOffEditing(task)">
+        </td>
+        <td>
+          <button ng-click="editTask(task)">Edit</button>
+        </td>
+        <td>
+          <button ng-click="deleteTask(task)">Delete</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</body>
+
+</html>

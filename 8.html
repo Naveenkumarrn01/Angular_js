@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Angular JS Login Form</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script>
+        var app = angular.module("loginApp", []);
+        app.controller('loginAppCntrl', function ($scope) {
+            $scope.userName = '';
+            $scope.password = '';
+            $scope.noAttempts = 0;
+            $scope.login = function () {
+                // console.log("Inside login function")
+                if ($scope.userName == "harish" &&
+                    $scope.password == "12345678") {
+                    alert("Login Successful");
+                } else {
+                    $scope.noAttempts++;
+                    if ($scope.noAttempts <= 3) {
+                        alert("Incorrect username/password! Attempt No. " + $scope.noAttempts);
+                    } else {
+                        document.getElementById("loginButton").disabled = true;
+                    }
+                }
+            };
+        });
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            width: 300px;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body ng-app="loginApp" ng-controller="loginAppCntrl">
+    <h1>Angular JS Login Form</h1>
+    <form name="loginForm" ng-submit="submitForm()">
+        <!-- ... (rest of the code remains the same) ... -->
+    </form>
+</body>
+
+</html>

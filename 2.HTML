@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Items Application</title>
+    
+    <!-- Include AngularJS library -->
+    <script type="text/javascript" src="angular.min.js"></script>
+
+    <!-- AngularJS Script -->
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller("myCntrl", function ($scope) {
+            $scope.shoppingItems = ['Apple', 'Mango', 'Banana', 'Grapes'];
+            $scope.addItem = function () {
+                if ($scope.newItem && $scope.shoppingItems.indexOf($scope.newItem) == -1) {
+                    $scope.shoppingItems.push($scope.newItem);
+                    $scope.newItem = "";
+                }
+                else {
+                    if ($scope.newItem)
+                        alert("This item is already there in the shopping list");
+                    else
+                        alert("Please enter an item to add");
+                }
+            };
+            $scope.removeItem = function () {
+                if ($scope.shoppingItems.indexOf($scope.selectItem) == -1) {
+                    alert("Please select an item to remove");
+                }
+                else {
+                    var index = $scope.shoppingItems.indexOf($scope.selectItem);
+                    $scope.shoppingItems.splice(index, 1);
+                    $scope.selectItem = "";
+                }
+            };
+        });
+    </script>
+
+    <!-- Apply Advanced CSS Styles -->
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #2e29ca;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #8b0f24;
+            color: #fff;
+        }
+
+        div {
+            margin-top: 20px;
+        }
+
+        input, select {
+            padding: 8px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 8px 16px;
+            background-color: #d3bd15;
+            color: #060404;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #006666;
+        }
+    </style>
+</head>
+<body ng-app="myApp">
+    <div ng-controller="myCntrl">
+        <h2>Shopping Application</h2>
+        <h4>List of Shopping Items</h4>
+        <table>
+            <tr>
+                <th>SLNO</th>
+                <th>Item</th>
+            </tr>
+            <tr ng-repeat="items in shoppingItems">
+                <td>{{$index+1}}</td>
+                <td>{{items}}</td>
+            </tr>
+        </table>
+        <div>
+            <label>Enter an Item to Add:</label>
+            <input type="text" ng-model="newItem">
+            <button ng-click="addItem()">Add Item</button>
+        </div>
+        <div>
+            <label>Select an Item to Remove:</label>
+            <select ng-model="selectItem" ng-options="item for item in shoppingItems"></select>
+            <button ng-click="removeItem()">Remove Item</button>
+        </div>
+    </div>
+</body>
+</html>

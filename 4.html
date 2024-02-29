@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>AJS Square and Factorial Application</title>
+  <script type="text/javascript" src="angular.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      text-align: center;
+      background-color: lightseagreen;
+    }
+
+    h1 {
+      color: #0b0f0d;
+      border-bottom: 2px solid #333;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    .calculator-container {
+      width: 300px;
+      margin: 20px auto;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    input,
+    button {
+      margin: 10px;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #be4094;
+      color: white;
+      border: none;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    b {
+      font-size: 18px;
+      color: #333;
+    }
+  </style>
+  <script>
+    var app = angular.module("mySqFct", []);
+    app.controller("mySqFctCntrl", function ($scope) {
+      $scope.num = 0;
+      $scope.result;
+      $scope.factorial = function () {
+        if ($scope.num == 0) {
+          $scope.result = 1;
+        } else {
+          $scope.fact = 1;
+          for (var i = $scope.num; i >= 1; i--) {
+            $scope.fact = $scope.fact * i;
+          }
+          $scope.result = $scope.fact;
+        }
+      };
+      $scope.square = function () {
+        $scope.result = $scope.num * $scope.num;
+      };
+    });
+  </script>
+</head>
+
+<body ng-app="mySqFct">
+  <h1>Angular JS Factorial and Square Application</h1>
+  <div ng-controller="mySqFctCntrl" class="calculator-container">
+    Enter the Number: <input type="number" ng-model="num">
+    <button ng-click="factorial()">Compute Factorial</button>
+    <button ng-click="square()">Compute Square</button>
+    <br />
+    <b>{{result}}</b>
+  </div>
+</body>
+
+</html>

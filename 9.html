@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Angular JS Filter Employee Search Application</title>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+      border-bottom: 2px solid #333;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    .employee-container {
+      width: 80%;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    input {
+      margin: 10px;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 10px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  </style>
+  <script>
+    var app = angular.module("empSearchApp", []);
+    app.controller("empSearchAppCntrl", function ($scope) {
+      $scope.empList = [
+        { 'name': 'Harish Kumar B T', 'salary': 500000 },
+        { 'name': 'Chetan', 'salary': 400000 },
+        { 'name': 'Manju', 'salary': 300000 },
+        { 'name': 'Prashanth', 'salary': 400000 },
+        { 'name': 'Thanuja', 'salary': 500000 },
+        { 'name': 'Manasa', 'salary': 600000 }
+      ];
+
+      $scope.clearFilters = function () {
+        $scope.searchName = '';
+        $scope.searchSalary = '';
+      };
+    });
+  </script>
+</head>
+
+<body ng-app="empSearchApp">
+  <h1>Employee Search Application</h1>
+  <div ng-controller="empSearchAppCntrl" class="employee-container">
+    Search by Employee Name:<input type="text" ng-model="searchName">
+    Search by Employee salary:<input type="number" ng-model="searchSalary">
+    <button ng-click="clearFilters()">Clear Filters</button>
+    <br />
+    <h3>List of Employees</h3>
+    <table border="1">
+      <tr>
+        <th>SLNO</th>
+        <th>EMP NAME</th>
+        <th>SALARY</th>
+      </tr>
+      <tr ng-repeat="emp in empList | filter:{name:searchName, salary:searchSalary}">
+        <td>{{$index+1}}</td>
+        <td>{{emp.name}}</td>
+        <td>{{emp.salary}}</td>
+      </tr>
+    </table>
+  </div>
+</body>
+
+</html>

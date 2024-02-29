@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Item Management Application</title>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: lightgray;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+      border-bottom: 2px solid #333;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    .item-container {
+      width: 60%;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="text"],
+    button {
+      margin: 10px;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    b {
+      font-size: 18px;
+      color: #333;
+    }
+  </style>
+  <script>
+    var app = angular.module("itemMgmtApp", []);
+    app.controller("itemMgmtAppCntrl", function ($scope) {
+      $scope.itemList = ['Pen', 'Pencil', 'Eraser', 'Book'];
+
+      $scope.addItem = function () {
+        if ($scope.newItem) {
+          if ($scope.itemList.indexOf($scope.newItem) === -1) {
+            $scope.itemList.push($scope.newItem);
+            $scope.newItem = ''; // Clear the input after adding item
+          } else {
+            alert('This item is already there in the item collection');
+          }
+        } else {
+          alert('Please Enter the item to add');
+        }
+      };
+
+      $scope.removeItem = function (item) {
+        var yes = confirm("Are you sure you want to delete " + item);
+        if (yes) {
+          var index = $scope.itemList.indexOf(item);
+          $scope.itemList.splice(index, 1);
+        }
+      };
+    });
+  </script>
+</head>
+
+<body ng-app="itemMgmtApp">
+  <h1>Item Management Application</h1>
+  <div ng-controller="itemMgmtAppCntrl" class="item-container">
+    Enter an item to add: <input type="text" ng-model="newItem">
+    <button ng-click="addItem()">ADD</button>
+    <br /><br />
+    <b>List of Items</b>
+    <table border="1">
+      <tr>
+        <th>SLNO</th>
+        <th>Item</th>
+        <th>Remove</th>
+      </tr>
+      <tr ng-repeat="item in itemList">
+        <td>{{$index+1}}</td>
+        <td>{{item}}</td>
+        <td><button ng-click="removeItem(item)">Remove</button></td>
+      </tr>
+    </table>
+    <br />
+    Total Number of Items = <b>{{itemList.length}}</b>
+  </div>
+</body>
+
+</html>

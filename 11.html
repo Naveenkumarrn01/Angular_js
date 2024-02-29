@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Student Details in Uppercase</title>
+  <script type="text/javascript" src="angular.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: skyblue;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+      border-bottom: 2px solid #c75b5b;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    .button-container {
+      margin-bottom: 20px;
+    }
+
+    button {
+      background-color: #090a0e;
+      color: white;
+      border: none;
+      padding: 10px 20px; 
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 10px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    table {
+      width: 50%;
+      margin: 20px auto;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #020502;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  </style>
+  <script>
+    var app = angular.module("studDetailsUpperApp", []);
+    app.controller("studDetailsUpperAppCntrl", function ($scope) {
+      $scope.studDetails = ['harish', 'kumar', 'chetan', 'prashanth', 'thanuja'];
+      $scope.upper = true;
+      $scope.lower = false;
+
+      $scope.Lower = function () {
+        $scope.upper = false;
+        $scope.lower = true;
+      };
+
+      $scope.Upper = function () {
+        $scope.upper = true;
+        $scope.lower = false;
+      };
+    });
+  </script>
+</head>
+
+<body ng-app="studDetailsUpperApp">
+  <h1>Student Details in Uppercase</h1>
+  <div ng-controller="studDetailsUpperAppCntrl">
+    <div class="button-container">
+      <button ng-click="Upper()">Upper</button>
+      <button ng-click="Lower()">Lower</button>
+    </div>
+    <table border="1">
+      <tr>
+        <th>SLNO</th>
+        <th>NAME</th>
+      </tr>
+      <tr ng-repeat="student in studDetails">
+        <td>{{$index+1}}</td>
+        <td ng-show="upper">{{student | uppercase}}</td>
+        <td ng-show="lower">{{student | lowercase}}</td>
+      </tr>
+    </table>
+  </div>
+</body>
+
+</html>
